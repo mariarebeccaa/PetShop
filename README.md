@@ -1,5 +1,25 @@
-# Vue 3 + Vite
+# 🐾 Pet Adoption App
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A single-page application built with **Vue 3 (Composition API)**.  
+This project simulates a modern pet adoption platform featuring a responsive hero section and simple hash-based navigation.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+---
+
+## Preview
+
+### Home Page
+![Homepage Preview](./src/assets/images/home.png)
+
+---
+
+## Overview
+
+**Pet Adoption App** is a minimal and clean Vue project that includes:
+- Responsive design adapting to all screen sizes
+- Simple routing without using Vue Router
+- Three main pages:
+  - Home
+  - Browse
+  - Sell
+- Modern hero section with pets layered over colorful backgrounds
+
