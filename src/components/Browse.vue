@@ -1,11 +1,11 @@
 <template>
   <section class="page">
     <header class="page-header">
-      <h1>Sell</h1>
+      <h1>Browse</h1>
     </header>
 
     <div class="page-body">
-      <p>Post an adoption / sell form will go here.</p>
+      <p>Placeholder content for Browse page.</p>
     </div>
   </section>
 </template>
@@ -24,8 +24,10 @@
     margin-bottom: 1rem; 
 }
 .page-header h1 { 
-    font-size: 1.6rem; 
+    font-size: 2rem; 
     margin: 0; 
-    text-transform: lowercase; 
+}
+.page-body { 
+    color: rgba(0,0,0,0.7); 
 }
 </style>

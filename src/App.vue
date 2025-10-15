@@ -1,26 +1,41 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import Navbar from './components/Navbar.vue'
 import Hero from './components/Hero.vue'
+import Browse from './components/Browse.vue'
+import Sell from './components/Sell.vue'
+
+const route = ref('home')
+
+function updateRouteFromHash() {
+  const h = window.location.hash.replace(/^#\/?/, '')
+  route.value = h || 'home'
+}
+
+function go(target) {
+  window.location.hash = '/' + target
+  route.value = target
+}
+
+onMounted(() => {
+  updateRouteFromHash()
+  window.addEventListener('hashchange', updateRouteFromHash)
+})
+onUnmounted(() => window.removeEventListener('hashchange', updateRouteFromHash))
 </script>
 
 <template>
   <div id="app">
-    <Navbar />
-    <Hero />
+    <Navbar :current-route="route" @navigate="go" />
+    <main>
+      <Hero v-if="route === 'home'" />
+      <Browse v-else-if="route === 'browse'" />
+      <Sell v-else-if="route === 'sell'" />
+      <Hero v-else />
+    </main>
   </div>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+main { padding-bottom: 4rem; }
 </style>
