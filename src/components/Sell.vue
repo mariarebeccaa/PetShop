@@ -1,7 +1,7 @@
 <template>
   <section class="page">
     <header class="page-header">
-      <h1>Sell</h1>
+      <h1>Post an Ad</h1>
     </header>
 
     <div class="page-body">
