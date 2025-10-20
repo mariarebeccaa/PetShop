@@ -32,6 +32,19 @@ import parrotCenter from '../assets/images/parrot.png'
       <img class="parrot parrot-center" :src="parrotCenter" alt="Parrot on blue blob" loading="lazy" />
     </div>
   </section>
+
+  <!-- NEW: Browse anchor + cards -->
+  <section id="browse-section" class="browse-categories" aria-label="Browse by category">
+    <div class="container">
+      <h2>Browse by category</h2>
+      <div class="cards">
+        <article class="card">Accessories<br/><small>84 products</small></article>
+        <article class="card">Food<br/><small>64 products</small></article>
+        <article class="card">Furniture<br/><small>22 products</small></article>
+        <article class="card">Bags<br/><small>16 products</small></article>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>
@@ -214,7 +227,6 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
     height: auto;
     right: -0%;
     bottom: -80px;
-    /* transform: translateX(50%); */
   }
 
   .parrot-center {
@@ -222,7 +234,6 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
     height: 100px;
     right: 50%;
     top: 120px;
-    /* transform: translateX(50%); */
   }
 }
 
@@ -233,8 +244,8 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
   }
 
   .dog-top {
-    bottom: 62%;  /* proporțional cu înălțimea ferestrei */
-    right: 5vw;     /* proporțional cu lățimea ferestrei */
+    bottom: 62%;
+    right: 5vw;   
     width: 220px;
     height: auto;
   }
@@ -279,14 +290,13 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
   .shape-top {
     top: 85px;
     right: -9%;
-    /* transform: translateX(50%); */
     width: 260px;
     height: 240px;
   }
 
   .dog-top {
     bottom: 69%;
-    right: -1%;     /* proporțional cu lățimea ferestrei */
+    right: -1%;
     width: 220px;
     height: auto;
   }
@@ -305,7 +315,6 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
     height: auto;
     right: 60%;
     bottom: -75px;
-    /* transform: translate(50%, 20%); */
   }
 
   .cat-center {
@@ -314,7 +323,6 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
     height: auto;
     right: -21%;
     bottom: -80px;
-    /* transform: translateX(50%); */
   }
 
   .parrot-center {
@@ -322,9 +330,46 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
     height: 100px;
     right: 50%;
     top: 120px;
-    /* transform: translateX(50%); */
   }
 }
 
+.browse-categories {
+  padding: 10rem 1.5rem;
+  background: #fff;
+}
+.browse-categories .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.browse-categories h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1..25rem;
+  text-align: left;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.card {
+  background: #f6f6f8;
+  border-radius: 12px;
+  padding: 1.25rem;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  cursor: pointer;
+}
+.card small { color: rgba(0,0,0,0.6); margin-top: 0.5rem; }
 
+@media (max-width: 900px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .browse-categories h2 { text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .cards { grid-template-columns: 1fr; }
+}
 </style>

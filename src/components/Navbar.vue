@@ -8,7 +8,8 @@
           <router-link to="/" class="nav-link" active-class="active" exact>home</router-link>
         </li>
         <li>
-          <router-link to="/browse" class="nav-link" active-class="active">browse</router-link>
+          <!-- browse: scroll to #browse-section on home -->
+          <a href="#" class="nav-link" @click.prevent="goBrowse">browse</a>
         </li>
         <li>
           <router-link to="/sell" class="nav-link" active-class="active">post ad</router-link>
@@ -21,7 +22,37 @@
 </template>
 
 <script setup>
-// Nu mai e nevoie de props sau computed — router-ul gestionează ruta activă automat.
+import { useRouter, useRoute } from 'vue-router'
+import { nextTick } from 'vue'
+
+const router = useRouter()
+const route = useRoute()
+
+function scrollToBrowseSection() {
+  const el = document.getElementById('browse-section')
+  if (!el) return
+  // compensate for sticky header height
+  const header = document.querySelector('.site-header')
+  const headerOffset = header ? header.offsetHeight + 8 : 0
+  const top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset
+  window.scrollTo({ top, behavior: 'smooth' })
+}
+
+function goBrowse() {
+  if (route.path === '/' || route.path === '') {
+    // already on home
+    scrollToBrowseSection()
+  } else {
+    // navigate to home first, then scroll after render
+    router.push('/').then(() => {
+      // wait a tick so DOM is rendered, then scroll
+      nextTick(() => {
+        // small delay ensures hero rendered
+        setTimeout(scrollToBrowseSection, 60)
+      })
+    })
+  }
+}
 </script>
 
 <style scoped>
