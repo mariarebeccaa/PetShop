@@ -35,15 +35,26 @@ import parrotCenter from '../assets/images/parrot.png'
     </div>
   </section>
 
-  <!-- NEW: Browse anchor + cards -->
+  <!-- Browse anchor + clickable cards that route to /category/:slug -->
   <section id="browse-section" class="browse-categories" aria-label="Browse by category">
     <div class="container">
       <h2>Browse by category</h2>
       <div class="cards">
-        <article class="card">Dogs<br/><small>84 posts</small></article>
-        <article class="card">Cats<br/><small>64 posts</small></article>
-        <article class="card">Domestic animals<br/><small>22 posts</small></article>
-        <article class="card">Birds/Fishes<br/><small>16 posts</small></article>
+        <router-link :to="{ name: 'category', params: { slug: 'dogs' } }" class="card">
+          <strong>Dogs</strong><small>84 posts</small>
+        </router-link>
+
+        <router-link :to="{ name: 'category', params: { slug: 'cats' } }" class="card">
+          <strong>Cats</strong><small>64 posts</small>
+        </router-link>
+
+        <router-link :to="{ name: 'category', params: { slug: 'domestic' } }" class="card">
+          <strong>Domestic animals</strong><small>22 posts</small>
+        </router-link>
+
+        <router-link :to="{ name: 'category', params: { slug: 'birds' } }" class="card">
+          <strong>Birds / Fishes</strong><small>16 posts</small>
+        </router-link>
       </div>
     </div>
   </section>
@@ -366,17 +377,17 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
   gap: 1rem;
 }
 .card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   background:  #e7d7ff;
   border-radius: 5px;
   padding: 1.25rem;
   min-height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-  cursor: pointer;
 }
-.card small { color: rgba(0,0,0,0.6); margin-top: 0.5rem; }
+.card strong { display:block; font-size:1.5rem; margin-bottom:0.35rem; color: rgba(89, -5, 2, 0.50);}
+.card small { color: black; }
 
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
