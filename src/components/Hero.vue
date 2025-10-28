@@ -7,6 +7,8 @@ import parrotCenter from '../assets/images/parrot.png'
 
 <template>
   <section class="hero" role="region" aria-label="Hero">
+    <!-- Background rectangle that spans full viewport width and sits behind the hero content -->
+    <div class="hero-rect" aria-hidden="true"></div>
     <div class="hero-left">
       <h1>
         Looking for a <span class="accent">good</span> time?
@@ -38,10 +40,10 @@ import parrotCenter from '../assets/images/parrot.png'
     <div class="container">
       <h2>Browse by category</h2>
       <div class="cards">
-        <article class="card">Accessories<br/><small>84 products</small></article>
-        <article class="card">Food<br/><small>64 products</small></article>
-        <article class="card">Furniture<br/><small>22 products</small></article>
-        <article class="card">Bags<br/><small>16 products</small></article>
+        <article class="card">Dogs<br/><small>84 posts</small></article>
+        <article class="card">Cats<br/><small>64 posts</small></article>
+        <article class="card">Domestic animals<br/><small>22 posts</small></article>
+        <article class="card">Birds/Fishes<br/><small>16 posts</small></article>
       </div>
     </div>
   </section>
@@ -56,6 +58,18 @@ import parrotCenter from '../assets/images/parrot.png'
   gap: 2rem;
   align-items: center;
   position: relative;
+}
+
+/* Full-width white rectangle behind the hero that visually connects to the browse area */
+.hero-rect {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -2rem;
+  bottom: -12rem;
+  width: 100vw;
+  background: #f4f5f3;
+  z-index: 0;
 }
 
 /* Left column (text) */
@@ -342,8 +356,8 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
   margin: 0 auto;
 }
 .browse-categories h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1..25rem;
+  font-size: 1.9rem;
+  margin-bottom: 1.25rem;
   text-align: left;
 }
 .cards {
@@ -352,8 +366,8 @@ h1 { font-size: 3rem; margin: 0 0 1rem; }
   gap: 1rem;
 }
 .card {
-  background: #f6f6f8;
-  border-radius: 12px;
+  background:  #e7d7ff;
+  border-radius: 5px;
   padding: 1.25rem;
   min-height: 120px;
   display: flex;
