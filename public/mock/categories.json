@@ -1,0 +1,62 @@
+{
+    "dogs": {
+        "title": "Dogs",
+        "posts": [
+            {
+                "title": "Buddy — 2 yrs",
+                "img": "dog_post1.jpg"
+            },
+            {
+                "title": "Rex — 4 yrs",
+                "img": "dog_post2.jpg"
+            },
+            {
+                "title": "Milo — 1 yr",
+                "img": "dog_post3.jpg"
+            }
+        ]
+    },
+    "cats": {
+        "title": "Cats",
+        "posts": [
+            {
+                "title": "Luna — 3 yrs",
+                "img": "cat_post1.jpg"
+            },
+            {
+                "title": "Simba — 2 yrs",
+                "img": "cat_post2.jpg"
+            },
+            {
+                "title": "Misty — 5 yrs",
+                "img": "cat_post3.jpg"
+            }
+        ]
+    },
+    "domestic": {
+        "title": "Domestic animals",
+        "posts": [
+            {
+                "title": "Bunny — 1 yr",
+                "img": "da_post1.jpg"
+            },
+            {
+                "title": "Hamster — 6 mo",
+                "img": "da_post2.jpg"
+            }
+        ]
+    },
+    "birds": {
+        "title": "Birds / Fishes",
+        "posts": [
+            {
+                "title": "Tweety — parrot",
+                "img": "parrot_post1.jpg"
+            },
+            {
+                "title": "Goldie — fish",
+                "img": "fish_post1.jpg"
+            }
+        ]
+    }
+}

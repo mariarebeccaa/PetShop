@@ -1,6 +1,7 @@
 <script setup>
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { computed } from 'vue'
+
 import dogPost1 from '../assets/images/dog_post1.jpg'
 import dogPost2 from '../assets/images/dog_post2.jpg'
 import dogPost3 from '../assets/images/dog_post3.jpg'
@@ -12,29 +13,57 @@ import daPost2 from '../assets/images/da_post2.jpg'
 import parrotPost1 from '../assets/images/parrot_post1.jpg'
 import fishPost1 from '../assets/images/fish_post1.jpg'
 
+const imageMap = {
+  'dog_post1.jpg': dogPost1,
+  'dog_post2.jpg': dogPost2,
+  'dog_post3.jpg': dogPost3,
+  'cat_post1.jpg': catPost1,
+  'cat_post2.jpg': catPost2,
+  'cat_post3.jpg': catPost3,
+  'da_post1.jpg': daPost1,
+  'da_post2.jpg': daPost2,
+  'parrot_post1.jpg': parrotPost1,
+  'fish_post1.jpg': fishPost1
+}
+
 const route = useRoute()
 const router = useRouter()
-
 const slug = computed(() => route.params.slug || 'unknown')
 
-const meta = {
-  dogs: {
-    title: 'Dogs',
-    posts: [
-      { title: 'Buddy — 2 yrs', img: dogPost1 },
-      { title: 'Rex — 4 yrs', img: dogPost2 },
-      { title: 'Milo — 1 yr', img: dogPost3 },
-    ],
-  },
-  cats: {
-    title: 'Cats', 
-    posts: [ { title: 'Luna — 3 yrs', img: catPost1  },
-   { title: 'Simba — 2 yrs', img: catPost2 },
-    { title: 'Misty — 5 yrs',  img: catPost3 } ] },
-  domestic: { title: 'Domestic animals', posts: [ { title: 'Bunny — 1 yr', img: daPost1 }, { title: 'Hamster — 6 mo', img: daPost2 } ] },
-  birds: { title: 'Birds / Fishes', posts: [ { title: 'Tweety — parrot', img: parrotPost1 }, { title: 'Goldie — fish', img: fishPost1 } ] },
+const title = ref('')
+const posts = ref([])
+const loading = ref(false)
+const error = ref(null)
+
+async function loadCategory(key) {
+  loading.value = true
+  error.value = null
+  try {
+    const res = await fetch('/mock/categories.json')
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    const data = await res.json()
+    const cat = data[key]
+    if (cat) {
+      title.value = cat.title
+      posts.value = cat.posts.map(p => ({
+        title: p.title,
+        img: p.img ? imageMap[p.img] : null
+      }))
+    } else {
+      title.value = key
+      posts.value = []
+    }
+  } catch (e) {
+    error.value = e.message
+    title.value = key
+    posts.value = []
+  } finally {
+    loading.value = false
+  }
 }
-const data = computed(() => meta[slug.value] || { title: slug.value, posts: [] })
+
+onMounted(() => loadCategory(slug.value))
+watch(slug, (v) => loadCategory(v))
 
 function goBack() {
   router.push('/')
@@ -50,23 +79,22 @@ function goBack() {
     <div class="container">
       <div class="category-header">
         <button @click="goBack">← Home</button>
-        <h1>{{ data.title }}</h1>
+        <h1>{{ title }}</h1>
       </div>
 
-      <div class="posts-grid">
-        <article v-for="(p, i) in data.posts" :key="i" class="post-card">
-          <template v-if="p.img">
-            <img :src="p.img" alt="" class="thumb" />
-          </template>
-          <template v-else>
-            <div class="thumb" aria-hidden="true"></div>
-          </template>
+      <div v-if="loading">Loading...</div>
+      <div v-else-if="error">Error: {{ error }}</div>
+
+      <div v-else class="posts-grid">
+        <article v-for="(p, i) in posts" :key="i" class="post-card">
+          <img v-if="p.img" :src="p.img" alt="" class="thumb" />
+          <div v-else class="thumb" aria-hidden="true"></div>
           <div class="post-meta">
             <strong>{{ p.title }}</strong>
-            <!-- <small>Sample post • placeholder</small> -->
           </div>
         </article>
-        <div v-if="!data.posts.length" class="empty">No posts yet for "{{ slug }}"</div>
+
+        <div v-if="!posts.length" class="empty">No posts yet for "{{ slug }}"</div>
       </div>
     </div>
   </section>
