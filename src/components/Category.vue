@@ -13,6 +13,8 @@ import daPost2 from '../assets/images/da_post2.jpg'
 import parrotPost1 from '../assets/images/parrot_post1.jpg'
 import fishPost1 from '../assets/images/fish_post1.jpg'
 
+import { categories, load } from '../store.js'
+
 const imageMap = {
   'dog_post1.jpg': dogPost1,
   'dog_post2.jpg': dogPost2,
@@ -30,40 +32,25 @@ const route = useRoute()
 const router = useRouter()
 const slug = computed(() => route.params.slug || 'unknown')
 
-const title = ref('')
-const posts = ref([])
+// încărcăm datele inițiale o singură dată
+onMounted(() => load())
+
+const title = computed(() => {
+  const c = categories[slug.value]
+  return c ? c.title : slug.value
+})
+
+const posts = computed(() => {
+  const c = categories[slug.value]
+  if (!c || !Array.isArray(c.posts)) return []
+  return c.posts.map(p => ({
+    title: p.title,
+    img: p.img ? (imageMap[p.img] || p.img) : null
+  }))
+})
+
 const loading = ref(false)
 const error = ref(null)
-
-async function loadCategory(key) {
-  loading.value = true
-  error.value = null
-  try {
-    const res = await fetch('/mock/categories.json')
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const data = await res.json()
-    const cat = data[key]
-    if (cat) {
-      title.value = cat.title
-      posts.value = cat.posts.map(p => ({
-        title: p.title,
-        img: p.img ? imageMap[p.img] : null
-      }))
-    } else {
-      title.value = key
-      posts.value = []
-    }
-  } catch (e) {
-    error.value = e.message
-    title.value = key
-    posts.value = []
-  } finally {
-    loading.value = false
-  }
-}
-
-onMounted(() => loadCategory(slug.value))
-watch(slug, (v) => loadCategory(v))
 
 function goBack() {
   router.push('/')
